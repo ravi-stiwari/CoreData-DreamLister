@@ -17,6 +17,8 @@
 		78465F0C1E7585B600A3E2DA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78465F0A1E7585B600A3E2DA /* Item+CoreDataProperties.swift */; };
 		78465F0F1E7585F300A3E2DA /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78465F0D1E7585F300A3E2DA /* Image+CoreDataClass.swift */; };
 		78465F101E7585F300A3E2DA /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78465F0E1E7585F300A3E2DA /* Image+CoreDataProperties.swift */; };
+		78B57A501E769D6000FDA1B7 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B57A4F1E769D6000FDA1B7 /* MaterialView.swift */; };
+		78B57A521E76B3A100FDA1B7 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B57A511E76B3A100FDA1B7 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		78465F0A1E7585B600A3E2DA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78465F0D1E7585F300A3E2DA /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
 		78465F0E1E7585F300A3E2DA /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		78B57A4F1E769D6000FDA1B7 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		78B57A511E76B3A100FDA1B7 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 		78465EF21E757ECA00A3E2DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				78B57A4F1E769D6000FDA1B7 /* MaterialView.swift */,
+				78B57A511E76B3A100FDA1B7 /* ItemCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -186,11 +192,13 @@
 			files = (
 				78465EDE1E757E8000A3E2DA /* MainVC.swift in Sources */,
 				78465EDC1E757E8000A3E2DA /* AppDelegate.swift in Sources */,
+				78B57A521E76B3A100FDA1B7 /* ItemCell.swift in Sources */,
 				78465F0B1E7585B600A3E2DA /* Item+CoreDataClass.swift in Sources */,
 				78465F0F1E7585F300A3E2DA /* Image+CoreDataClass.swift in Sources */,
 				78465EE41E757E8000A3E2DA /* DreamLister.xcdatamodeld in Sources */,
 				78465F0C1E7585B600A3E2DA /* Item+CoreDataProperties.swift in Sources */,
 				78465F101E7585F300A3E2DA /* Image+CoreDataProperties.swift in Sources */,
+				78B57A501E769D6000FDA1B7 /* MaterialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +362,7 @@
 				78465EEF1E757E8000A3E2DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
