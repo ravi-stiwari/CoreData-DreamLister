@@ -16,7 +16,7 @@
     </entity>
     <entity name="ItemType" representedClassName="ItemType" syncable="YES" codeGenerationType="class">
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="itemType" inverseEntity="Item" syncable="YES"/>
+        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="itemType" inverseEntity="Item" syncable="YES"/>
     </entity>
     <entity name="Store" representedClassName="Store" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,9 +24,9 @@
         <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="store" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-171" positionY="-189" width="128" height="148"/>
         <element name="Image" positionX="-2" positionY="-504" width="128" height="88"/>
+        <element name="Item" positionX="-261" positionY="-418" width="128" height="148"/>
+        <element name="ItemType" positionX="-72" positionY="-189" width="128" height="73"/>
         <element name="Store" positionX="315" positionY="-216" width="128" height="88"/>
-        <element name="ItemType" positionX="79" positionY="-264" width="128" height="75"/>
     </elements>
 </model>

@@ -16,25 +16,28 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var itemPriceTxtField: CustomTextField!
     @IBOutlet weak var itemDetailsTxtField: CustomTextField!
     @IBOutlet weak var storeSelectLabel: UILabel!
-    @IBOutlet weak var storePickerView: UIPickerView!
+    @IBOutlet weak var itemTypeAndstorePickerView: UIPickerView!
     
     var stores = [Store]()
     var itemToEdit: Item?
     var imagePicker: UIImagePickerController!
+    var itemTypes = [ItemType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
-        storePickerView.dataSource = self
-        storePickerView.delegate = self
+        itemTypeAndstorePickerView.dataSource = self
+        itemTypeAndstorePickerView.delegate = self
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
         //generateStoreData()
+        //generateItemTypesData()
         getStores()
+        getItemTypes()
         
         if itemToEdit != nil {
             loadItemData()
@@ -53,11 +56,17 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return stores.count
+        if component == 0 {
+            return itemTypes.count
+        }
+        else if component == 1 {
+            return stores.count
+        }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -67,8 +76,15 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let store = stores[row]
-        return store.name
+        if component == 0 {
+            let itemType = itemTypes[row]
+            return itemType.type
+        }
+        else if component == 1 {
+            let store = stores[row]
+            return store.name
+        }
+        return "Unknown Name"
     }
     
     func generateStoreData() {
@@ -93,12 +109,45 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         ad.saveContext()
     }
     
+    func generateItemTypesData() {
+        let itemType = ItemType(context: context)
+        itemType.type = "Electronics"
+        
+        let itemType1 = ItemType(context: context)
+        itemType1.type = "Home Appliances"
+        
+        let itemType2 = ItemType(context: context)
+        itemType2.type = "Daily Soaps"
+        
+        let itemType3 = ItemType(context: context)
+        itemType3.type = "Goods"
+        
+        let itemType4 = ItemType(context: context)
+        itemType4.type = "Skin care"
+        
+        let itemType5 = ItemType(context: context)
+        itemType5.type = "Others"
+        
+        ad.saveContext()
+    }
+    
+    func getItemTypes() {
+        let itemTypeFetchRequest: NSFetchRequest<ItemType> = ItemType.fetchRequest()
+        do {
+            self.itemTypes = try context.fetch(itemTypeFetchRequest)
+            self.itemTypeAndstorePickerView.reloadComponent(0)
+        }
+        catch {
+            
+        }
+    }
+    
     func getStores() {
         
         let storeFetchRequest: NSFetchRequest<Store> = Store.fetchRequest()
         do {
             self.stores = try context.fetch(storeFetchRequest)
-            self.storePickerView.reloadAllComponents()
+            self.itemTypeAndstorePickerView.reloadComponent(1)
         }
         catch {
             
@@ -109,14 +158,14 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         var item: Item!
         
-        let picture = Image(context: context)
-        picture.image = itemImagePickerImageView.image
-        
         if itemToEdit != nil {
             item = itemToEdit        }
         else {
             item = Item(context: context)
         }
+        
+        let picture = Image(context: context)
+        picture.image = itemImagePickerImageView.image
         item.image = picture
         
         if let itemTitle = itemTitleTxtField.text {
@@ -130,7 +179,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                 item.details = itemDetails
             }
             
-            item.store = stores[storePickerView.selectedRow(inComponent: 0)]
+            item.store = stores[itemTypeAndstorePickerView.selectedRow(inComponent: 1)]
+            item.itemType = itemTypes[itemTypeAndstorePickerView.selectedRow(inComponent: 0)]
             
             ad.saveContext()
             
@@ -146,16 +196,26 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             itemImagePickerImageView.image = item.image?.image as? UIImage
             
             if let store = item.store {
-                
                 var index = 0
                 repeat {
                     let currentStore = stores[index]
                     if currentStore.name == store.name {
-                        storePickerView.selectRow(index, inComponent: 0, animated: false)
+                        itemTypeAndstorePickerView.selectRow(index, inComponent: 1, animated: false)
                         break
                     }
                     index += 1
                 } while (index < stores.count)
+            }
+            
+            if let itemType = item.itemType {
+                var index = 0
+                repeat {
+                    let currentItemType = itemTypes[index]
+                    if currentItemType.type == itemType.type {
+                        itemTypeAndstorePickerView.selectRow(index, inComponent: 0, animated: false)
+                    }
+                    index += 1
+                } while (index < itemTypes.count)
             }
         }
     }
